@@ -10,7 +10,7 @@
 -- public class
 -- public float
 ----
-local PASSCODE = "1700s"
+local PASSCODE = "1430"
 local MAX_TRIES = 3
 
 function passcodeLogin()
