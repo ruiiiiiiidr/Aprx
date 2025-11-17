@@ -32,13 +32,13 @@ function passcodeLogin()
 end
 passcodeLogin()
 ----
-local version = 2
+local version = 3
 local whatsNew=[[
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⌅  Script Version 2
+⌅  Script Version 3
 ⌅  Field Offset Version 4
 ⌅  Current Game Version 0.9.42
-⌅  Update Sys Source: pastebin.com
+⌅  Update Sys Source: GitHub.com
 ⌅  Experimental
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⌂  16 Nov, 2025
