@@ -1527,7 +1527,7 @@ end
 
 ----
 function FreeShopParts()
-gg.alert("This Will take time everyday will cost 1$ cash in parts shop")
+gg.alert("This Will take time everything will cost 1$ cash in parts shop")
 valueFromClass("EngineObject", "0x4C", false, false,  gg.TYPE_DWORD)  
    gg.getResults(9999)
    gg.editAll(1,  gg.TYPE_DWORD)
