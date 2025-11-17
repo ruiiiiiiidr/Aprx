@@ -54,7 +54,7 @@ ___________________________________________
 ≔  APEX racer x64
 ]]
 ----
-
+gg.alert(whatsNew)
 ----
 function selectMode()
     local mode = gg.choice(
