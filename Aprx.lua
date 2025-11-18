@@ -376,12 +376,12 @@ end
 ----
   function EvBypass()
   local choice = gg.choice({
-  "Remove Limitor",
-  "Engine/EVMotor",
-  "Ecu/OverClock",
+  "Remove EV Speed Limitor",
+  "Engine/Battery Swap Hp",
+  "Engine/Battery Swap Rpm",
   "Custom IdleRpm",
   "Back"
-  }, nil, "EV & Engine")
+  }, nil, "Tunings")
 
 if choice == nil then
     mainMenu()
@@ -1941,7 +1941,7 @@ end
 function TuneCarRpm()
     gg.setVisible(false)  
   gg.setVisible(false)  
-  valueFromClass("EngineObject", "0x5C", false, false, gg.TYPE_DWORD)
+  valueFromClass("EngineObject", "0x6C", false, false, gg.TYPE_DWORD)
   local currentResults = gg.getResults(9999)
   
   if #currentResults == 0 then
@@ -1962,7 +1962,7 @@ function TuneCarRpm()
   })
 
   gg.clearResults()
-  gg.toast("check savelist")
+  gg.alert("check savelist")
   gg.setVisible(true)
   mainMenu()
 end
@@ -1990,7 +1990,7 @@ function CustomRPMidle()
   })
 
   gg.clearResults()
-  gg.toast("check savelist")
+  gg.alert("check savelist")
   gg.setVisible(true)
   mainMenu()
 end
