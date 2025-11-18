@@ -41,11 +41,9 @@ local whatsNew=[[
 ⌅  Update Sys Source: GitHub.com
 ⌅  Experimental
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⌂  16 Nov, 2025
+⌂  17 Nov, 2025 12:07 AM
  ChangeLog:
-  ∷  Crate Menu
-  ∷  FreePartShop  
-  ∷  Small Fix  
+  ∷  Bypass Electric car speed limitor  
 ___________________________________________
 ≔  globalmetadata.dat   
 ≔  ilbil2cpp.so
@@ -58,7 +56,7 @@ gg.alert(whatsNew)
 ----
 function selectMode()
     local mode = gg.choice(
-        {"Field Offset Finder", "ApeXploits", "ApeX1", "OFF", "Exit"},
+        {"Field Offset Finder", "APEX Racer", "Quick HP & Rpm Tuning", "OFF", "Exit"},
         nil,
         "Select Mode"
     )
@@ -189,13 +187,13 @@ function GoBackToSelectMode()
         gg.toast("V4 Field Offset Selected Tap Game Guardian (If it didn't show) then Sx")
         UI()
     elseif userMode == 2 then
-        gg.toast("ApeXploits Selected")
+        gg.toast("APEX Racer Selected")
         mainMenu()
     elseif userMode == 3 then
-        gg.toast("ApeX1 Selected")
+        gg.toast("T&N Selected")
         menu2()
     elseif userMode == 4 then 
-        gg.toast("Tap GG Icon Again To Show.")
+        gg.toast("Tap GG Icon Again To Show")
     else
         gg.toast("Exiting")
         os.exit()
@@ -210,12 +208,13 @@ function mainMenu()
         "Dealership",
         "Inventory",
         "Vehicle Codes",
-        "Crate",
-        "Free PartShop",
-        "EditSavelist",
+        "Crates",
+        "Free Parts Shop",
+        "EV Limitor Bypass",
+        "Edit Save List",
         "OFF",
         "Return To Select Mode"
-    }, nil, "ApeXploits")
+    }, nil, "APEX Racer")
 
     if menu == nil then return end
 
@@ -226,10 +225,11 @@ function mainMenu()
     if menu[5] then InvT() end
     if menu[6] then VC() end
     if menu[7] then CrateOB() end
-    if menu[8] then FreeShopParts() end
-    if menu[9] then ViewSavelist() end
-    if menu[10] then HideIcon2() end
-    if menu[11] then GoBackToSelectMode() end
+    if menu[8] then FSH() end
+    if menu[9] then EvBypass() end
+    if menu[10] then ViewSavelist() end
+    if menu[11] then HideIcon2() end
+    if menu[12] then GoBackToSelectMode() end
 end
 ----
 function PerformanceMenu()
@@ -271,7 +271,7 @@ function HiddenPartsMenu()
     "Transmission",
     "ShowMore",
     "Back"
-  }, nil, "Set Unavailable Parts Available In PartShop")
+  }, nil, "Make Unavailable Parts Appear In PartShop")
 ----
   if choice == nil then
     mainMenu()
@@ -297,7 +297,7 @@ end
 function PlayerMenu()
     local choice = gg.choice({
         "Level",
-        "SeeAllEvents",
+        "See All Events",
         "Back"
     }, nil, "Player")
     
@@ -308,9 +308,9 @@ end
  ----
  function DealershipMenu()
     local choice = gg.choice({
-        "Buy All Vehicles For One Dollar Game Cash" ,
+        "Buy All Vehicles For 1$" ,
         "Get Any Vehicle",
-        "SetLockedVehicleUnlocked",
+        "Make Locked Vehicles Unlocked",
         "Back",
     }, nil, "Dealership")
     
@@ -322,8 +322,8 @@ end
  ----
  function InvT()
      local choice = gg.choice({
-        "InventoryPartOwnedIncrease",
-        "WorkshopPartOwnedIncrease",
+        "Inventory Part Owned Increase",
+        "Workshop Part Owned Increase",
         "Back"
     }, nil, "Inventory")
     
@@ -360,7 +360,35 @@ if choice == nil then
  if choice == 9 then mainMenu() end
  end
  ----  
- 
+function FSH()
+  local choice = gg.choice({
+  "FreeShop",
+  "Back"
+  }, nil, "Fpsh")
+
+if choice == nil then
+    mainMenu()
+  end  
+    
+ if choice == 1 then FreeShopParts() end
+ if choice == 2 then mainMenu() end
+end
+----
+  function EvBypass()
+  local choice = gg.choice({
+  "Remove Limitor",
+  "Back"
+  }, nil, "EV")
+
+if choice == nil then
+    mainMenu()
+  end  
+    
+ if choice == 1 then BypassEletricCarTopSpeed() end
+ if choice == 2 then mainMenu() end
+end
+
+----  
 function cheat_1()
     gg.setVisible(false)  
 
@@ -1830,8 +1858,14 @@ valueFromClass("CrateObject", "0x174", false, false,  gg.TYPE_DWORD)
    gg.editAll(0,  gg.TYPE_DWORD)
    gg.clearResults()
 end
-
-
+----
+function BypassEletricCarTopSpeed()
+   valueFromClass("EngineObject", "0x74", false, false,  gg.TYPE_DWORD)  
+   gg.getResults(9999)
+   gg.editAll(10000000,  gg.TYPE_DWORD)
+   gg.clearResults()
+end
+----
 
 
 
@@ -4007,10 +4041,10 @@ end
 Savelist = Savelist or {} 
 function menu2()
     local menu = gg.multiChoice({
-        "Tune Hp & RPM",
+        "Tune Hp & Rpm",
         "SaveList",
         "Go Back To Select Mode"
-    }, nil, "ApeX1")
+    }, nil, "T&N")
 
     if not menu then
         gg.toast("Exiting")
@@ -4144,17 +4178,17 @@ while true do
                     UI()
 
                 elseif userMode == 2 then
-                    gg.toast("ApeXploits Selected")
+                    gg.toast("APEX Racer Selected")
                     lastMenu = "selectMode"
                     mainMenu()
 
                 elseif userMode == 3 then
-                    gg.toast("ApeX1 Selected")
+                    gg.toast("T&N Selected")
                     lastMenu = "selectMode"
                     menu2()
 
                 elseif userMode == 4 then
-                    gg.toast("Tap GG Icon Again To Show.")
+                    gg.toast("Tap GG Icon Again To Show")
                     HideIcon()
                     
                 elseif userMode == 5 then
