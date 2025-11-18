@@ -1823,12 +1823,14 @@ valueFromClass("CrateObject", "0x174", false, false,  gg.TYPE_DWORD)
    gg.alert("Done")  
 end
 ----
-valueFromClass("CrateObject", "0x174", false, false,  gg.TYPE_DWORD)  
+function CrateOb8()
 gg.alert("when you go to another load screen it will reset so re run this if you don't wanna spend a single gold")
+valueFromClass("CrateObject", "0x174", false, false,  gg.TYPE_DWORD)  
    gg.getResults(9999)
-   gg.editAll(0 gg.TYPE_DWORD)
+   gg.editAll(0,  gg.TYPE_DWORD)
    gg.clearResults()
 end
+
 
 
 
