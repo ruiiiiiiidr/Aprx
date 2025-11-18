@@ -210,7 +210,7 @@ function mainMenu()
         "Vehicle Codes",
         "Crates",
         "Free Parts Shop",
-        "EV Limitor Bypass",
+        "EV & Engine",
         "Edit Save List",
         "OFF",
         "Return"
@@ -1938,7 +1938,7 @@ function TuneCarHp()
     mainMenu()
 end
 ----
-function TuneCarHp()
+function TuneCarRpm()
     gg.setVisible(false)  
 
     valueFromClass("EngineObject", "0x6C", false, false, gg.TYPE_DWORD)
@@ -1956,7 +1956,7 @@ function TuneCarHp()
         choices[i] = string.format("0x%X | %s", v.address, tostring(v.value))
     end
 
-    local selection = gg.choice(choices, nil, "Ecu and OverClock Hp")
+    local selection = gg.choice(choices, nil, "Ev Motor And Engine Rpm")
     if not selection then
         gg.setVisible(true)
         mainMenu()
@@ -1991,14 +1991,14 @@ function TuneCarHp()
     
     Savelist = Savelist or {}
     table.insert(Savelist, {
-        name = "Ecu/OverClock",
+        name = "Engine/Motor Rpm",
         value = valueToEdit,
         flags = selectedResult.flags,
         results = {selectedResult}
     })
 
     gg.clearResults()
-    gg.toast("0x" .. string.format("%X", selectedResult.address) .. "Ecu/OverClock")
+    gg.toast("0x" .. string.format("%X", selectedResult.address) .. "Engine/Motor Rpm")
 
     gg.setVisible(true)  
     mainMenu()
