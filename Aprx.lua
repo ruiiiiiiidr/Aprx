@@ -213,7 +213,7 @@ function mainMenu()
         "EV Limitor Bypass",
         "Edit Save List",
         "OFF",
-        "Return To Select Mode"
+        "Return"
     }, nil, "APEX Racer")
 
     if menu == nil then return end
@@ -234,13 +234,13 @@ end
 ----
 function PerformanceMenu()
   local choice = gg.choice({
-    "TurboPSI",
-    "ShiftSpeed",
-    "TyreGrip",
-    "EcuRpm",
-    "ChassisWeight",
+    "Turbo PSI",
+    "Shift Speed",
+    "Tyre Grip",
+    "Ecu Rpm",
+    "Chassis Weight",
     "Back"
-  }, nil, "Performance Tune Up")
+  }, nil, "Performance Tune Up+")
 
   if choice == nil then
     mainMenu()
@@ -271,7 +271,7 @@ function HiddenPartsMenu()
     "Transmission",
     "ShowMore",
     "Back"
-  }, nil, "Make Unavailable Parts Appear In PartShop")
+  }, nil, "Make Unavailable Parts Appear In PartsShop")
 ----
   if choice == nil then
     mainMenu()
@@ -2712,7 +2712,7 @@ function user_input_taker()
       'Change Search Mode',
       'Give names and save',
       'Custom Load (Load multiple With names)',
-      'Go Back to Select Mode' },
+      'Return' },
     { default1, default2, default3, default4, false, default5, default7, false },
     { "text", "text", "checkbox", "checkbox", "checkbox", "checkbox", "checkbox", "checkbox" }
 )
@@ -4043,7 +4043,7 @@ function menu2()
     local menu = gg.multiChoice({
         "Tune Hp & Rpm",
         "SaveList",
-        "Go Back To Select Mode"
+        "Return"
     }, nil, "T&N")
 
     if not menu then
