@@ -362,9 +362,9 @@ if choice == nil then
  ----  
 function FSH()
   local choice = gg.choice({
-  "FreeShop",
+  "Free Parts",
   "Back"
-  }, nil, "Fpsh")
+  }, nil, "Buy Parts For Free")
 
 if choice == nil then
     mainMenu()
@@ -377,15 +377,21 @@ end
   function EvBypass()
   local choice = gg.choice({
   "Remove Limitor",
+  "Engine/EVMotor",
+  "Ecu/OverClock",
+  "Custom IdleRpm",
   "Back"
-  }, nil, "EV")
+  }, nil, "EV & Engine")
 
 if choice == nil then
     mainMenu()
   end  
     
  if choice == 1 then BypassEletricCarTopSpeed() end
- if choice == 2 then mainMenu() end
+ if choice == 2 then TuneCarHp() end
+ if choice == 3 then TuneCarRpm() end
+ if choice == 4 then CustomRPMidle() end
+ if choice == 5 then mainMenu() end
 end
 
 ----  
@@ -605,7 +611,7 @@ function cheat_4()
         choices[i] = string.format("0x%X | %s", v.address, tostring(v.value))
     end
 
-    local selection = gg.choice(choices, nil, "ECU")
+    local selection = gg.choice(choices, nil, "Ecu")
     if not selection then
         gg.setVisible(true)
         mainMenu()
@@ -640,14 +646,14 @@ function cheat_4()
     
     Savelist = Savelist or {}
     table.insert(Savelist, {
-        name = "VehicleECURpm",
+        name = "VehicleEcuRpm",
         value = valueToEdit,
         flags = selectedResult.flags,
         results = {selectedResult}
     })
 
     gg.clearResults()
-    gg.toast("0x" .. string.format("%X", selectedResult.address) .. "VehicleECURpm")
+    gg.toast("0x" .. string.format("%X", selectedResult.address) .. "VehicleEcuRpm")
 
     gg.setVisible(true)  
     mainMenu()  
@@ -1866,16 +1872,166 @@ function BypassEletricCarTopSpeed()
    gg.clearResults()
 end
 ----
+function TuneCarHp()
+    gg.setVisible(false)  
 
+    valueFromClass("EngineObject", "0x70", false, false, gg.TYPE_DWORD)
+    local currentResults = gg.getResults(9999)
+    
+    if #currentResults == 0 then
+        gg.alert("Err")
+        gg.setVisible(true)
+        mainMenu()
+        return
+    end
 
+    local choices = {}
+    for i, v in ipairs(currentResults) do
+        choices[i] = string.format("0x%X | %s", v.address, tostring(v.value))
+    end
 
+    local selection = gg.choice(choices, nil, "Engine and Ev Motor Hp")
+    if not selection then
+        gg.setVisible(true)
+        mainMenu()
+        return
+    end
 
+    local selectedResult = currentResults[selection]
 
+    gg.clearResults()
+    gg.loadResults({{address = selectedResult.address, flags = selectedResult.flags, value = selectedResult.value}})
 
+    local inputValue = gg.prompt(
+        {"0x" .. string.format("%X", selectedResult.address)},
+        {selectedResult.value},
+        {"number"}
+    )
+    if not inputValue then
+        gg.setVisible(true)
+        mainMenu()
+        return
+    end
 
+    local valueToEdit = tonumber(inputValue[1])
+    if not valueToEdit then
+        gg.toast("Err")
+        gg.setVisible(true)
+        mainMenu()
+        return
+    end
 
+    gg.setValues({{address = selectedResult.address, value = valueToEdit, flags = selectedResult.flags}})
+    
+    Savelist = Savelist or {}
+    table.insert(Savelist, {
+        name = "Engine/Motor",
+        value = valueToEdit,
+        flags = selectedResult.flags,
+        results = {selectedResult}
+    })
 
+    gg.clearResults()
+    gg.toast("0x" .. string.format("%X", selectedResult.address) .. "Engine/Motor")
 
+    gg.setVisible(true)  
+    mainMenu()
+end
+----
+function TuneCarHp()
+    gg.setVisible(false)  
+
+    valueFromClass("EngineObject", "0x6C", false, false, gg.TYPE_DWORD)
+    local currentResults = gg.getResults(9999)
+    
+    if #currentResults == 0 then
+        gg.alert("Err")
+        gg.setVisible(true)
+        mainMenu()
+        return
+    end
+
+    local choices = {}
+    for i, v in ipairs(currentResults) do
+        choices[i] = string.format("0x%X | %s", v.address, tostring(v.value))
+    end
+
+    local selection = gg.choice(choices, nil, "Ecu and OverClock Hp")
+    if not selection then
+        gg.setVisible(true)
+        mainMenu()
+        return
+    end
+
+    local selectedResult = currentResults[selection]
+
+    gg.clearResults()
+    gg.loadResults({{address = selectedResult.address, flags = selectedResult.flags, value = selectedResult.value}})
+
+    local inputValue = gg.prompt(
+        {"0x" .. string.format("%X", selectedResult.address)},
+        {selectedResult.value},
+        {"number"}
+    )
+    if not inputValue then
+        gg.setVisible(true)
+        mainMenu()
+        return
+    end
+
+    local valueToEdit = tonumber(inputValue[1])
+    if not valueToEdit then
+        gg.toast("Err")
+        gg.setVisible(true)
+        mainMenu()
+        return
+    end
+
+    gg.setValues({{address = selectedResult.address, value = valueToEdit, flags = selectedResult.flags}})
+    
+    Savelist = Savelist or {}
+    table.insert(Savelist, {
+        name = "Ecu/OverClock",
+        value = valueToEdit,
+        flags = selectedResult.flags,
+        results = {selectedResult}
+    })
+
+    gg.clearResults()
+    gg.toast("0x" .. string.format("%X", selectedResult.address) .. "Ecu/OverClock")
+
+    gg.setVisible(true)  
+    mainMenu()
+end
+----
+function CustomRPMidle()
+  gg.setVisible(false)  
+  valueFromClass("EngineObject", "0x68", false, false, gg.TYPE_DWORD)
+  local currentResults = gg.getResults(9999)
+  
+  if #currentResults == 0 then
+      gg.alert("⚠️")
+      gg.setVisible(true)
+      mainMenu()
+      return
+  end
+
+  gg.editAll(0, gg.TYPE_DWORD)
+
+  Savelist = Savelist or {}
+  table.insert(Savelist, {
+      name = "IdleRpm",
+      value = 0,
+      flags = gg.TYPE_DWORD,
+      results = currentResults
+  })
+
+  gg.clearResults()
+  gg.toast("check savelist")
+  gg.setVisible(true)
+  mainMenu()
+end
+----
 
 
 
@@ -4057,7 +4213,7 @@ function menu2()
 end
 ----
 function Edit_Both()
-    gg.alert("Equip  ECU - INFINI-ZX")
+    gg.alert("Equip  Ecu - INFINI-ZX")
     gg.setRanges(gg.REGION_ANONYMOUS)
     gg.searchNumber("255;2500", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
     local results = gg.getResults(99999)
@@ -4102,10 +4258,10 @@ function Edit_Both()
     gg.setValues(hpResults)
     gg.setValues(rpmResults)
 
-    table.insert(Savelist, {name="ECUHP", value=values[1], results=hpResults, flags=gg.TYPE_DWORD})
-    table.insert(Savelist, {name="ECURPM", value=values[2], results=rpmResults, flags=gg.TYPE_DWORD})
+    table.insert(Savelist, {name="EcuHP", value=values[1], results=hpResults, flags=gg.TYPE_DWORD})
+    table.insert(Savelist, {name="EcuRpm", value=values[2], results=E.Results, flags=gg.TYPE_DWORD})
 
-    gg.toast("Hp & RPM Added In SaveList")
+    gg.toast("Hp & Rpm Added In SaveList")
     return menu2()
 end
 
