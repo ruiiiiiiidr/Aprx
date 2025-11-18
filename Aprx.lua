@@ -33,30 +33,17 @@ end
 passcodeLogin()
 ----
 local version = 3
-local whatsNew=[[
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⌅  Script Version 3
-⌅  Field Offset Version 4
-⌅  Current Game Version 0.9.42
-⌅  Update Sys Source: GitHub.com
-⌅  Experimental
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⌂  17 Nov, 2025 12:07 AM
- ChangeLog:
-  ∷  Bypass Electric car speed limitor  
-___________________________________________
-≔  globalmetadata.dat   
-≔  ilbil2cpp.so
-≔  dump.cs
-≔  unity
-≔  APEX racer x64
+local whatsNew = [[
+18 Nov, 2025 4:20 PM
+ChangeLog:
+-  Battery And Engine Menu
 ]]
 ----
 gg.alert(whatsNew)
 ----
 function selectMode()
     local mode = gg.choice(
-        {"Field Offset Finder", "APEX Racer", "Quick HP & Rpm Tuning", "OFF", "Exit"},
+        {"Field Offset Finder V4", "APEX Racer", "Quick HP & Rpm Tuning", "OFF", "Exit"},
         nil,
         "Select Mode"
     )
