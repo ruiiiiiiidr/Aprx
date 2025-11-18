@@ -882,9 +882,9 @@ function cheat_all2()
 end
 ----
 function cheat_25()
-   valueFromClass("ProjectObject", "0x50", false, false,  gg.TYPE_DWORD)  
+   valueFromClass("InventoryPart", "0x18", false, false,  gg.TYPE_DWORD)  
    gg.getResults(9999)
-   gg.editAll(15000,  gg.TYPE_DWORD)
+   gg.editAll(25000,  gg.TYPE_DWORD)
    gg.clearResults()
 end
 ----
@@ -1823,26 +1823,12 @@ valueFromClass("CrateObject", "0x174", false, false,  gg.TYPE_DWORD)
    gg.alert("Done")  
 end
 ----
-function CrateOb8()
-    valueFromClass("CrateObject", "0x17C", false, false, gg.TYPE_DWORD)
-    local r = gg.getResults(9999)
-    if #r == 0 then 
-        gg.toast("⚠️")
-        return 
-    end
-    for i = 1, #r do
-        r[i].value = 0
-        r[i].freeze = true
-        r[i].flags = gg.TYPE_DWORD
-    end
-    gg.setValues(r)
-    gg.addListItems(r)  
-    gg.clearResults()    
+valueFromClass("CrateObject", "0x174", false, false,  gg.TYPE_DWORD)  
+gg.alert("when you go to another load screen it will reset so re run this if you don't wanna spend a single gold")
+   gg.getResults(9999)
+   gg.editAll(0 gg.TYPE_DWORD)
+   gg.clearResults()
 end
-
-
-
-
 
 
 
