@@ -1940,68 +1940,31 @@ end
 ----
 function TuneCarRpm()
     gg.setVisible(false)  
+  gg.setVisible(false)  
+  valueFromClass("EngineObject", "0x5C", false, false, gg.TYPE_DWORD)
+  local currentResults = gg.getResults(9999)
+  
+  if #currentResults == 0 then
+      gg.alert("⚠️")
+      gg.setVisible(true)
+      mainMenu()
+      return
+  end
 
-    valueFromClass("EngineObject", "0x6C", false, false, gg.TYPE_DWORD)
-    local currentResults = gg.getResults(9999)
-    
-    if #currentResults == 0 then
-        gg.alert("Err")
-        gg.setVisible(true)
-        mainMenu()
-        return
-    end
+  gg.editAll(0, gg.TYPE_DWORD)
 
-    local choices = {}
-    for i, v in ipairs(currentResults) do
-        choices[i] = string.format("0x%X | %s", v.address, tostring(v.value))
-    end
+  Savelist = Savelist or {}
+  table.insert(Savelist, {
+      name = "Engine/Ev Motor Rpm",
+      value = 0,
+      flags = gg.TYPE_DWORD,
+      results = currentResults
+  })
 
-    local selection = gg.choice(choices, nil, "Ev Motor And Engine Rpm")
-    if not selection then
-        gg.setVisible(true)
-        mainMenu()
-        return
-    end
-
-    local selectedResult = currentResults[selection]
-
-    gg.clearResults()
-    gg.loadResults({{address = selectedResult.address, flags = selectedResult.flags, value = selectedResult.value}})
-
-    local inputValue = gg.prompt(
-        {"0x" .. string.format("%X", selectedResult.address)},
-        {selectedResult.value},
-        {"number"}
-    )
-    if not inputValue then
-        gg.setVisible(true)
-        mainMenu()
-        return
-    end
-
-    local valueToEdit = tonumber(inputValue[1])
-    if not valueToEdit then
-        gg.toast("Err")
-        gg.setVisible(true)
-        mainMenu()
-        return
-    end
-
-    gg.setValues({{address = selectedResult.address, value = valueToEdit, flags = selectedResult.flags}})
-    
-    Savelist = Savelist or {}
-    table.insert(Savelist, {
-        name = "Engine/Motor Rpm",
-        value = valueToEdit,
-        flags = selectedResult.flags,
-        results = {selectedResult}
-    })
-
-    gg.clearResults()
-    gg.toast("0x" .. string.format("%X", selectedResult.address) .. "Engine/Motor Rpm")
-
-    gg.setVisible(true)  
-    mainMenu()
+  gg.clearResults()
+  gg.toast("check savelist")
+  gg.setVisible(true)
+  mainMenu()
 end
 ----
 function CustomRPMidle()
