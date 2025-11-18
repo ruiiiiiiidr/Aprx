@@ -43,7 +43,7 @@ gg.alert(whatsNew)
 ----
 function selectMode()
     local mode = gg.choice(
-        {"Field Offset Finder V4", "APEX Racer", "Quick HP & Rpm Tuning", "OFF", "Exit"},
+        {"Field Offset Finder", "APEX Racer", "Quick HP & Rpm Tuning", "OFF", "Exit"},
         nil,
         "Select Mode"
     )
